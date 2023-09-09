@@ -1,12 +1,28 @@
 <!DOCTYPE html>
+<html>
+<head>
+    <title>Flight Number Input</title>
+</head>
+<body>
+    <h1>Flight Number Input</h1>
+    <p>Enter the flight number:</p>
+    <input type="text" id="flightNumberInput" placeholder="Flight Number">
+    <button id="submitButton">Submit</button>
+    <p id="output"></p>
 
-<html lang = "en">
-    <head>
-        <title>
-            hello, title
-        </title>
-    </head>
-    <body>
-        hello, body
-    </body>
+    <script>
+        // Get references to the input field and output element
+        const flightNumberInput = document.getElementById('flightNumberInput');
+        const output = document.getElementById('output');
+
+        // Add a click event listener to the submit button
+        document.getElementById('submitButton').addEventListener('click', function () {
+            // Get the value entered by the user
+            const flightNumber = flightNumberInput.value;
+
+            // Display the flight number in the output element
+            output.textContent = `You entered flight number: ${flightNumber}`;
+        });
+    </script>
+</body>
 </html>
