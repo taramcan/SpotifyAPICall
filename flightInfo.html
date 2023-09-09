@@ -1,27 +1,42 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Flight Number Input</title>
+    <title>Flight Tracker</title>
 </head>
 <body>
-    <h1>Flight Number Input</h1>
+    <h1>Flight Tracker</h1>
     <p>Enter the flight number:</p>
     <input type="text" id="flightNumberInput" placeholder="Flight Number">
-    <button id="submitButton">Submit</button>
-    <p id="output"></p>
+    <button id="submitButton">Track Flight</button>
+    <p id="flightInfo"></p>
 
     <script>
-        // Get references to the input field and output element
         const flightNumberInput = document.getElementById('flightNumberInput');
-        const output = document.getElementById('output');
+        const flightInfoOutput = document.getElementById('flightInfo');
 
-        // Add a click event listener to the submit button
         document.getElementById('submitButton').addEventListener('click', function () {
-            // Get the value entered by the user
             const flightNumber = flightNumberInput.value;
 
-            // Display the flight number in the output element
-            output.textContent = `You entered flight number: ${flightNumber}`;
+            // Replace 'YOUR_API_KEY' with your actual API key
+            const apiKey = 'YOUR_API_KEY';
+
+            // Construct the API URL
+            const apiUrl = `https://api.flighttracker.com/flight-info?flightNumber=${flightNumber}&apiKey=${apiKey}`;
+
+            // Fetch flight information from the API
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    // Display the retrieved flight information
+                    flightInfoOutput.textContent = `Flight Number: ${data.flightNumber}\n`;
+                    flightInfoOutput.textContent += `Departure: ${data.departure}\n`;
+                    flightInfoOutput.textContent += `Arrival: ${data.arrival}\n`;
+                    // Add more flight data properties as needed
+                })
+                .catch(error => {
+                    console.error('Error fetching flight information:', error);
+                    flightInfoOutput.textContent = 'Error fetching flight information. Please try again later.';
+                });
         });
     </script>
 </body>
