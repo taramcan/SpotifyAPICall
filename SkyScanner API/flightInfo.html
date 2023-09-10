@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Skyscanner Flight Tracker</title>
+</head>
+<body>
+    <h1>Skyscanner Flight Tracker</h1>
+    <p>Enter the flight number:</p>
+    <input type="text" id="flightNumberInput" placeholder="Flight Number">
+    <button id="submitButton">Track Flight</button>
+    <p id="flightInfo"></p>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        document.getElementById('submitButton').addEventListener('click', function () {
+            const flightNumber = document.getElementById('flightNumberInput').value;
+
+            // Replace 'YOUR_API_KEY' with your actual API key
+            const apiKey = 'b186a5446fmsh8e104515ba97123p17be97jsn308093281cd5';
+
+            // Set up the Axios request configuration
+            const config = {
+                method: 'GET',
+                url: 'https://sky-scrapper.p.rapidapi.com/api/v1/flights/searchFlights',
+                params: {
+                    originSkyId: 'LOND',
+                    destinationSkyId: 'NYCA',
+                    originEntityId: '27544008',
+                    destinationEntityId: '27537542',
+                    date: '2024-02-20',
+                    adults: '1',
+                    currency: 'USD',
+                    market: 'en-US',
+                    countryCode: 'US',
+                    flightNumber: flightNumber // Use the flight number entered by the user
+                },
+                headers: {
+                    'X-RapidAPI-Key': apiKey,
+                    'X-RapidAPI-Host': 'sky-scrapper.p.rapidapi.com'
+                }
+            };
+
+            // Make the Axios request
+            axios.request(config)
+                .then(response => {
+                    console.log(response.data);
+                    
+                    // Extract the destination city from the response data
+                    const destinationCity = response.data.destinationCity;
+
+                    // Display the destination city in the 'flightInfo' element
+                    document.getElementById('flightInfo').textContent = `Destination City: ${destinationCity}`;
+                })
+                .catch(error => {
+                    console.error(error);
+                    document.getElementById('flightInfo').textContent = 'Error fetching flight information. Please try again later.';
+                });
+        });
+    </script>
+</body>
+</html>
