@@ -1,7 +1,7 @@
 const APIController = (function() {
     
-    const clientId = 'ADD YOUR CLIENT ID';
-    const clientSecret = 'ADD YOUR CLIENT SECRET';
+    const clientId = 'dfba4f615d3f4fd08fb04594963a7d8b';
+    const clientSecret = '472b8dba0d5b4ee9a552679fb42e59ad';
 
     // private methods
     const _getToken = async () => {
@@ -10,7 +10,7 @@ const APIController = (function() {
             method: 'POST',
             headers: {
                 'Content-Type' : 'application/x-www-form-urlencoded', 
-                'Authorization' : 'Basic ' + btoa(clientId + ':' + clientSecret)
+                'Authorization' : 'Basic ' + btoa( clientId + ':' + clientSecret)
             },
             body: 'grant_type=client_credentials'
         });
@@ -107,10 +107,10 @@ const UIController = (function() {
         inputField() {
             return {
                 genre: document.querySelector(DOMElements.selectGenre),
-                playlist: document.querySelector(DOMElements.selectPlaylist),
-                tracks: document.querySelector(DOMElements.divSonglist),
-                submit: document.querySelector(DOMElements.buttonSubmit),
-                songDetail: document.querySelector(DOMElements.divSongDetail)
+                // playlist: document.querySelector(DOMElements.selectPlaylist),
+                // tracks: document.querySelector(DOMElements.divSonglist),
+                // submit: document.querySelector(DOMElements.buttonSubmit),
+                // songDetail: document.querySelector(DOMElements.divSongDetail)
             }
         },
 
@@ -260,6 +260,3 @@ const APPController = (function(UICtrl, APICtrl) {
 
 // will need to call a method to load the genres on page load
 APPController.init();
-
-
-
