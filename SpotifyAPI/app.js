@@ -9,6 +9,15 @@
         const apiKey = clientId;
         const secretKey = clientSecret;
 
+        //check user placed text in the field
+        const isEmpty = str => !str.trim().length;
+        if(isEmpty(document.getElementById('artistNameInput').value) ) {
+            document.getElementById('seeAlso').textContent = "";
+            document.getElementById('trackInfo').textContent = "Please enter something in the search box";
+            return false;
+        }
+        else{
+
         //Get personalized Spotify token for this API call
         const _getToken = async () => {
             const result = await fetch('https://accounts.spotify.com/api/token', {
@@ -63,7 +72,7 @@
                                 }
                                 return list;
                             }
-                            //print tracks into index.html
+                            //display ordered list on index.html
                             document.getElementById('trackInfo').appendChild(makeUL(tracks));
                             
                     })
@@ -82,23 +91,18 @@
                         document.getElementById('seeAlso').innerHTML="You may also like: " + `${relatedArtists}`;
                     })
                     
-                    //check for errors in the destination
+                    //validate user input on user side
                     .catch(destinationError => {
                         document.getElementById('trackInfo').textContent = 'Error fetching artist track info.';
                     });
             })
-            //check for user input error
+            //return error when server-side validation fails
             .catch(error => {
                 console.error(error);
-                const isEmpty = str => !str.trim().length;
-                if(isEmpty(document.getElementById('artistNameInput').value) ) {
-                    document.getElementById('seeAlso').textContent = "";
-                    document.getElementById('trackInfo').textContent = "Please enter something in the search box";
-                    return false;
-                }
                 document.getElementById('seeAlso').textContent = "";
                 document.getElementById('trackInfo').textContent = 'Error. \"' + `${origin}` + '\" is not a known artist.';
             });
+        }
 
     });
     
